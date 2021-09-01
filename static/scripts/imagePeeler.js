@@ -1,13 +1,34 @@
 class ImagePeeler {
-    constructor(box, mask) {
+    constructor(box, mask, settings) {
         this.box = document.querySelector(box);
         this.mask = document.querySelector(mask);
         this.startCapturing = false;
+        this.isMousedown = false;
+        this.settings = {
+            onMousedown: true,
+        }
+
+        this.settings = {
+            ...this.settings,
+            ...settings
+        }
+
+        this.box.querySelector('img').setAttribute('draggable', 'false');
 
         // bind events
+        this.box.addEventListener("mousedown", this.handleMousedown);
+        this.box.addEventListener("mouseup", this.handleMouseup);
         this.box.addEventListener("mouseenter", this.handleMouseenter);
         this.box.addEventListener("mousemove", this.handleMousemove);
         this.box.addEventListener("mouseleave", this.handleMouseleave);
+    }
+
+    handleMousedown = () => {
+        this.isMousedown = true;
+    }
+
+    handleMouseup = () => {
+        this.isMousedown = false;
     }
 
     handleMouseenter = () => {
@@ -15,7 +36,7 @@ class ImagePeeler {
     }
 
     handleMousemove = (e) => {
-        if (!this.startCapturing) return;
+        if (!this.startCapturing || (this.settings.onMousedown && !this.isMousedown)) return;
         e.preventDefault();
 
         let height = (((e.clientY - (window.pageYOffset + this.box.getBoundingClientRect().top)) / this.box.getBoundingClientRect().height) * 100).toFixed(2);

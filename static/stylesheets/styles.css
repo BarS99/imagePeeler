@@ -17,6 +17,7 @@ body {
     position: relative;
     width: 100%;
     max-width: 400px;
+    user-select: none;
 }
 
 .imagePeeler>img {
@@ -46,6 +47,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .imagePeeler__handler .imagePeeler__icon {
