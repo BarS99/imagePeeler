@@ -13,6 +13,16 @@ class ImagePeeler {
             ...settings
         }
 
+        if (this.box === null) {
+            console.warn('ImagePeeler manager: Box cannot be null!');
+            return;
+        }
+        if (this.mask === null) {
+            console.warn('ImagePeeler manager: Mask cannot null!');
+            return;
+
+        }
+
         this.box.querySelector('img').setAttribute('draggable', 'false');
 
         // bind events
@@ -48,5 +58,6 @@ class ImagePeeler {
 
     handleMouseleave = () => {
         this.startCapturing = false;
+        this.isMousedown = false;
     }
 }
