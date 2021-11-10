@@ -1,7 +1,7 @@
 class ImagePeeler {
     constructor(box, mask, settings) {
-        this.box = document.querySelector(box);
-        this.mask = document.querySelector(mask);
+        this.box = box;
+        this.mask = this.box.querySelector(mask);
         this.startCapturing = false;
         this.isMousedown = false;
         this.settings = {
@@ -49,7 +49,7 @@ class ImagePeeler {
         if (!this.startCapturing || (this.settings.onMousedown && !this.isMousedown)) return;
         e.preventDefault();
 
-        let height = (((e.clientY - (window.pageYOffset + this.box.getBoundingClientRect().top)) / this.box.getBoundingClientRect().height) * 100).toFixed(2);
+        let height = (((e.clientY - this.box.getBoundingClientRect().top) / this.box.getBoundingClientRect().height) * 100).toFixed(2);
         if (height < 0) height = 0;
         else if (height > 100) height = 100;
 
